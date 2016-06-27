@@ -12,7 +12,7 @@ let donutdata = ()=>[{ name: "Germany", value: Math.round(Math.random() * 100), 
 
 class Index extends React.Component {
   render () {
-    return <div style={{width: 600, height: 800, margin:'0 auto'}}>
+    return <div style={{height: 800, margin:'0 auto'}}>
 
       <PieChart data={donutdata()} />
 

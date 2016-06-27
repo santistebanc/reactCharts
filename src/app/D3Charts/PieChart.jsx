@@ -14,25 +14,21 @@ export default class D3PieChart extends React.Component {
   handleChangeChartFrame(newDimensions){
     this.setState({dimensions: newDimensions});
   }
-  curateData(data){
-    const xIndex='name';
-    const yIndex='value';
-
-  }
   render () {
 
     const outrad = Math.min(this.state.dimensions.width/5,this.state.dimensions.height/3.5);
     const inrad = (outrad/4)*2;
-    const piePosition = {x: this.state.dimensions.width/2-100, y: this.state.dimensions.height/2};
-    const legendPosition = {x: this.state.dimensions.width/2+100, y: this.state.dimensions.height/2};
+    const piePosition = {x: Math.max(10+outrad,this.state.dimensions.width/2-70), y: this.state.dimensions.height/2};
+    const legendPosition = {x: Math.min(piePosition.x+20+outrad,this.state.dimensions.width-110), y: this.state.dimensions.height/2-outrad};
 
     return <ChartFrame onChange={this.handleChangeChartFrame.bind(this)} initialDimensions={this.state.dimensions}>
-              <Pie outerRadius={outrad} innerRadius={inrad} position={piePosition} data={}/>
-              <Legend position={legendPosition} />
+              <Pie outerRadius={outrad} innerRadius={inrad} position={piePosition} data={this.props.data} dataKeys={this.props.dataKeys}/>
+              <Legend position={legendPosition} data={this.props.data} dataKeys={this.props.dataKeys} />
            </ChartFrame>
   }
 }
 
 D3PieChart.defaultProps = {
-  data: []
+  data: [],
+  dataKeys: {xIndex:'name', yIndex:'value'}
 };
